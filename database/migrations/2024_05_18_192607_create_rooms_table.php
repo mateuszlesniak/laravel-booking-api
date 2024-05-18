@@ -16,8 +16,8 @@ return new class extends Migration {
         Schema::create('rooms', function (Blueprint $table) {
             $table->foreignIdFor(Location::class, 'location_id');
             $table->string('number');
-            $table->enum('status', RoomStatus::cases());
-            $table->enum('type', RoomType::cases());
+            $table->enum('status', array_column(RoomStatus::cases(), 'name'));
+            $table->enum('type', array_column(RoomType::cases(), 'name'));
             $table->boolean('smoke');
 
             $table->primary([
