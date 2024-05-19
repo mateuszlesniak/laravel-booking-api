@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Infrastructure\Model;
 
 use App\Reservation\Infrastructure\Model\ReservationVacancy;
+use Database\Factories\VacancyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,5 +17,10 @@ class Vacancy extends Model
     public function reservationVacancies(): HasMany
     {
         return $this->hasMany(ReservationVacancy::class);
+    }
+
+    protected static function newFactory()
+    {
+        return VacancyFactory::new();
     }
 }

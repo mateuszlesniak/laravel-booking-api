@@ -1,7 +1,8 @@
 {
     "preset": "symfony",
     "rules": {
-        "declare_strict_types": true
+        "declare_strict_types": true,
+        "ordered_class_elements": true
     },
     "exclude": [
         "bootstrap",

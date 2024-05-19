@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Location\Infrastructure\Model\Vacancy;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class VacancyFactory extends Factory
 {
+    protected $model = Vacancy::class;
+
     /**
      * Define the model's default state.
      *

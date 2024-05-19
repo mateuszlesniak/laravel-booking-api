@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\UI\Controller;
 
+use App\Location\Application\Exception\LocationNotFound;
 use App\Reservation\Infrastructure\Bus\Command\CreateReservationCommand;
 use App\Reservation\Infrastructure\Http\CreateReservationDTO;
 use App\Shared\Application\Bus\CommandBus;
@@ -27,6 +28,8 @@ class CreateReservation extends Controller
             $this->commandBus->dispatch(new CreateReservationCommand($createReservationPayload));
         } catch (\InvalidArgumentException $exception) {
             return response()->json($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        } catch (LocationNotFound $exception) {
+            return response()->json($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return response()->json(null, Response::HTTP_CREATED);

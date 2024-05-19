@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Room;
+use App\Location\Infrastructure\Model\Location;
 use App\Reservation\Application\DTO\ReservationStatus;
 use App\User\Infrastructure\Model\User;
 use Illuminate\Database\Migrations\Migration;
@@ -17,11 +17,14 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignIdFor(User::class, 'user_id');
+            $table->foreignIdFor(Location::class, 'location_id');
             $table->date('date_in');
             $table->date('date_out');
             $table->enum('status', array_column(ReservationStatus::cases(), 'name'));
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('location_id')->references('id')->on('locations');
+
             $table->timestamps();
         });
     }

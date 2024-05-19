@@ -2,33 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Providers;
+namespace App\Location\Infrastructure\Provider;
 
 use App\Location\Application\Repository\ReadLocationRepositoryInterface;
 use App\Location\Infrastructure\Repository\MySQLReadLocationRepository;
-use App\Reservation\Infrastructure\Bus\Command\CreateReservationCommand;
-use App\Reservation\Infrastructure\Bus\Command\CreateReservationCommandHandler;
 use App\Shared\Application\Bus\CommandBus;
 use App\Shared\Application\Bus\QueryBus;
-use App\Shared\Infrastructure\Bus\SynchronousQueryBus;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class LocationServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $singletons = [
-            CommandBus::class => CommandBus::class,
-            QueryBus::class => SynchronousQueryBus::class,
-        ];
-
-        foreach ($singletons as $abstract => $concrete) {
-            $this->app->singleton($abstract, $concrete);
-        }
-
         $this->app->bind(ReadLocationRepositoryInterface::class, MySQLReadLocationRepository::class);
     }
 
@@ -47,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
         $commandBus = app(CommandBus::class);
 
         $commandBus->register([
-            CreateReservationCommand::class => CreateReservationCommandHandler::class,
         ]);
     }
 

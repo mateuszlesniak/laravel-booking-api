@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Infrastructure\Bus\Command;
 
+use App\Location\Application\Exception\LocationNotFound;
 use App\Location\Application\Repository\ReadLocationRepositoryInterface;
 use App\Reservation\Application\DTO\ReservationDTO;
 use App\Reservation\Infrastructure\Service\ReservationService;
@@ -19,18 +20,17 @@ final readonly class CreateReservationCommandHandler implements CommandHandler
 
     public function handle(CreateReservationCommand $command): void
     {
-        $location = $this->locationRepository->findByLocationCode($command->payload->getLocationCode());
+        $locationDTO = $this->locationRepository->findByLocationCode($command->payload->getLocationCode());
 
-        if (!$location) {
-            // exception
+        if (!$locationDTO) {
+            throw new LocationNotFound($command->payload->getLocationCode());
         }
 
-        $reservationDTO = new ReservationDTO(
-            $command->payload->getStartDate(),
-            $command->payload->getEndDate(),
-            $location,
-            $command->payload->getPersons(),
-        );
+        $reservationDTO = (new ReservationDTO())
+            ->setStartDate($command->payload->getStartDate())
+            ->setEndDate($command->payload->getEndDate())
+            ->setLocationDTO($locationDTO)
+            ->setPersons($command->payload->getPersons());
 
         $this->reservationService->validateReservationDetails($reservationDTO);
 
