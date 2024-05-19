@@ -10,8 +10,8 @@ class Location extends Model
 {
     use HasFactory;
 
-    public function rooms(): HasMany
+    public function vacancies(): HasMany
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(Vacancy::class);
     }
 }

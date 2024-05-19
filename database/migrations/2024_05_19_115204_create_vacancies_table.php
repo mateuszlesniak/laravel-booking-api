@@ -1,7 +1,5 @@
 <?php
 
-use App\Booking\RoomStatus;
-use App\Booking\RoomType;
 use App\Models\Location;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,18 +11,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('vacancies', function (Blueprint $table) {
             $table->foreignIdFor(Location::class, 'location_id');
-            $table->string('number');
-            $table->enum('status', array_column(RoomStatus::cases(), 'name'));
-            $table->enum('type', array_column(RoomType::cases(), 'name'));
-            $table->boolean('smoke');
+            $table->date('date');
+            $table->unsignedTinyInteger('slots');
+            $table->timestamps();
 
             $table->primary([
-                'location_id',
-                'number',
+                'location_id', 'date'
             ]);
-            $table->timestamps();
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('vacancies');
     }
 };
