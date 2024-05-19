@@ -24,6 +24,7 @@ class LocationFactory extends Factory
                 ),
             'address' => fake()->address(),
             'country' => fake()->countryCode(),
+            'location_code' => strtoupper(fake()->unique()->bothify('???###'))
         ];
     }
 }
