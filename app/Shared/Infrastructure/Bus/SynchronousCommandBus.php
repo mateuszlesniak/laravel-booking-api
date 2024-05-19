@@ -8,7 +8,7 @@ use App\Shared\Application\Bus\Command\Command;
 use App\Shared\Application\Bus\CommandBus;
 use Illuminate\Bus\Dispatcher;
 
-readonly class SynchronousCommandBus implements SynchronousCommandBus
+readonly class SynchronousCommandBus implements CommandBus
 {
     public function __construct(
         protected Dispatcher $bus,
