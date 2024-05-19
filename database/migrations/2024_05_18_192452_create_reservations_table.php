@@ -17,7 +17,7 @@ return new class extends Migration {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(User::class, 'guest_id');
+            $table->foreignIdFor(User::class, 'user_id');
             $table->foreignIdFor(Vacancy::class);
             $table->date('date_in');
             $table->date('date_out');

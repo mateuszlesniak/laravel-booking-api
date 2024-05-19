@@ -8,37 +8,26 @@ use App\Application\RequestPayload;
 
 final class CreateReservationPayload extends RequestPayload
 {
+    protected array $requiredFields = [
+        'start_date',
+        'end_date',
+        'location_code',
+        'persons',
+    ];
+
     private \DateTimeImmutable $startDate;
     private \DateTimeImmutable $endDate;
     private string $locationCode;
     private int $persons;
 
-    public function __construct()
+    public function setStartDate(\DateTimeImmutable $startDate): void
     {
-        $this->requiredFields = [
-            'startDate',
-            'endDate',
-            'locationCode',
-            'persons',
-        ];
+        $this->startDate = $startDate;
     }
 
-    public function setStartDate(string $startDate): void
+    public function setEndDate(\DateTimeImmutable $endDate): void
     {
-        try {
-            $this->startDate = new \DateTimeImmutable($startDate);
-        } catch (\Exception) {
-            return;
-        }
-    }
-
-    public function setEndDate(string $endDate): void
-    {
-        try {
-            $this->endDate = new \DateTimeImmutable($endDate);
-        } catch (\Exception) {
-            return;
-        }
+        $this->endDate = $endDate;
     }
 
     public function getStartDate(): \DateTimeImmutable

@@ -10,6 +10,8 @@ use App\Application\Bus\IlluminateQueryBus;
 use App\Application\Bus\QueryBus;
 use App\Booking\Command\CreateReservationCommand;
 use App\Booking\Command\CreateReservationCommandHandler;
+use App\Booking\ReadLocationRepository;
+use App\Booking\ReadLocationRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         foreach ($singletons as $abstract => $concrete) {
             $this->app->singleton($abstract, $concrete);
         }
+
+        $this->app->bind(ReadLocationRepositoryInterface::class, ReadLocationRepository::class);
     }
 
     /**

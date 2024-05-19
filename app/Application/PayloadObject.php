@@ -6,5 +6,5 @@ namespace App\Application;
 
 interface PayloadObject
 {
-    public function validatePayload(): void;
+    public function getRequiredFields(): array;
 }
