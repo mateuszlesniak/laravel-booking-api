@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Infrastructure\Repository;
 
 use App\Location\Application\Repository\ReadLocationRepositoryInterface;
-use App\Models\Location;
+use App\Location\Infrastructure\Model\Location;
 
 final class MySQLReadLocationRepository implements ReadLocationRepositoryInterface
 {

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Location;
-use App\Models\User;
-use App\Models\Vacancy;
+use App\Location\Infrastructure\Model\Location;
+use App\Location\Infrastructure\Model\Vacancy;
+use App\User\Infrastructure\Model\User;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;

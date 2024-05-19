@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Application\DTO;
 
-use App\Models\Location;
+use App\Location\Infrastructure\Model\Location;
 
 final readonly class ReservationDTO
 {

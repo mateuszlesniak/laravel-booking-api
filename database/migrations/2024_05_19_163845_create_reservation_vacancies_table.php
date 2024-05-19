@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Reservation;
-use App\Models\Vacancy;
+use App\Location\Infrastructure\Model\Vacancy;
+use App\Reservation\Infrastructure\Model\Reservation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

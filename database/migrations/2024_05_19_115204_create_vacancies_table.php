@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Location;
+use App\Location\Infrastructure\Model\Location;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

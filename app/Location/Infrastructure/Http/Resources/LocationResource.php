@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Location\Infrastructure\Http\Resources;
 
-use App\Models\Location;
+use App\Location\Infrastructure\Model\Location;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
