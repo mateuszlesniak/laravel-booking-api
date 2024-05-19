@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application;
 
 use Illuminate\Http\Request;
-use UnexpectedValueException;
 
 trait ArgumentExtractor
 {
@@ -11,10 +12,10 @@ trait ArgumentExtractor
 
     public function extractArgumentsToObject(Request $request, string $className): object
     {
-        $object = new $className;
+        $object = new $className();
 
         if (!$object instanceof PayloadObject) {
-            throw new UnexpectedValueException();
+            throw new \UnexpectedValueException();
         }
 
         foreach ($request->all() as $parameterName => $value) {
@@ -34,10 +35,10 @@ trait ArgumentExtractor
 
     private function createSetterFunction(string $name): string
     {
-        return 'set' . str_replace(
-                self::WORD_SEPARATOR,
-                '',
-                ucwords($name, self::WORD_SEPARATOR)
-            );
+        return 'set'.str_replace(
+            self::WORD_SEPARATOR,
+            '',
+            ucwords($name, self::WORD_SEPARATOR)
+        );
     }
 }

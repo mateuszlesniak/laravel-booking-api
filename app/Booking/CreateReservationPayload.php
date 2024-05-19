@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Booking;
 
 use App\Application\RequestPayload;
-use DateTimeImmutable;
-use Exception;
 
 final class CreateReservationPayload extends RequestPayload
 {
-    private DateTimeImmutable $startDate;
-    private DateTimeImmutable $endDate;
+    private \DateTimeImmutable $startDate;
+    private \DateTimeImmutable $endDate;
     private string $locationCode;
     private int $persons;
 
@@ -26,8 +26,8 @@ final class CreateReservationPayload extends RequestPayload
     public function setStartDate(string $startDate): void
     {
         try {
-            $this->startDate = new DateTimeImmutable($startDate);
-        } catch (Exception) {
+            $this->startDate = new \DateTimeImmutable($startDate);
+        } catch (\Exception) {
             return;
         }
     }
@@ -35,18 +35,18 @@ final class CreateReservationPayload extends RequestPayload
     public function setEndDate(string $endDate): void
     {
         try {
-            $this->endDate = new DateTimeImmutable($endDate);
-        } catch (Exception) {
+            $this->endDate = new \DateTimeImmutable($endDate);
+        } catch (\Exception) {
             return;
         }
     }
 
-    public function getStartDate(): DateTimeImmutable
+    public function getStartDate(): \DateTimeImmutable
     {
         return $this->startDate;
     }
 
-    public function getEndDate(): DateTimeImmutable
+    public function getEndDate(): \DateTimeImmutable
     {
         return $this->endDate;
     }
@@ -70,6 +70,4 @@ final class CreateReservationPayload extends RequestPayload
     {
         $this->persons = $persons;
     }
-
-
 }

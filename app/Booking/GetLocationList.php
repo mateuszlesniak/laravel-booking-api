@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Booking;
 
 use App\Http\Resources\LocationResource;
@@ -15,5 +17,4 @@ class GetLocationList extends Controller
             Location::all()
         ));
     }
-
 }

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use App\Application\Bus\CommandBus;
+use App\Application\Bus\IlluminateCommandBus;
+use App\Application\Bus\IlluminateQueryBus;
+use App\Application\Bus\QueryBus;
 use App\Booking\Command\CreateReservationCommand;
 use App\Booking\Command\CreateReservationCommandHandler;
-use App\Bus\CommandBus;
-use App\Bus\IlluminateCommandBus;
-use App\Bus\IlluminateQueryBus;
-use App\Bus\QueryBus;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -52,7 +54,6 @@ class AppServiceProvider extends ServiceProvider
         $queryBus = app(QueryBus::class);
 
         $queryBus->register([
-            
         ]);
     }
 }

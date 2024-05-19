@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Models\Location;
@@ -15,7 +17,7 @@ class LocationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        /** @var $this Location */
+        /* @var $this Location */
         return [
             'id' => $this->id,
             'name' => $this->name,

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Booking;
+declare(strict_types=1);
 
-use Exception;
+namespace App\Booking;
 
 final class ReservationService
 {
     public function validateReservationDetails(ReservationDTO $reservationDTO): void
     {
-        throw new Exception();
+        throw new \Exception();
     }
 
     public function createReservation(ReservationDTO $reservationDTO): void

@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Booking;
 
 use App\Models\Location;
-use DateTimeImmutable;
 
 final readonly class ReservationDTO
 {
     public function __construct(
-        public DateTimeImmutable $startDate,
-        public DateTimeImmutable $endDate,
+        public \DateTimeImmutable $startDate,
+        public \DateTimeImmutable $endDate,
         public Location $location,
         public int $persons,
-    )
-    {
+    ) {
     }
 }

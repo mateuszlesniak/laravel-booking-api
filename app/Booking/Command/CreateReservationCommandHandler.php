@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Booking\Command;
 
 use App\Application\Bus\CommandHandler;
@@ -7,11 +9,9 @@ use App\Booking\ReservationService;
 
 final readonly class CreateReservationCommandHandler implements CommandHandler
 {
-
     public function __construct(
         private ReservationService $reservationService,
-    )
-    {
+    ) {
     }
 
     public function handle(CreateReservationCommand $command): void
@@ -25,11 +25,9 @@ final readonly class CreateReservationCommandHandler implements CommandHandler
          *
          * * use ReservationService class
          */
-
         $startDate = $command->payload->getStartDate();
         $endDate = $command->payload->getEndDate();
 
         dd($command);
     }
-
 }
