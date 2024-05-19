@@ -12,14 +12,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('vacancies', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(Location::class, 'location_id');
             $table->date('date');
             $table->unsignedTinyInteger('slots');
             $table->timestamps();
 
-            $table->primary([
-                'location_id', 'date'
-            ]);
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 

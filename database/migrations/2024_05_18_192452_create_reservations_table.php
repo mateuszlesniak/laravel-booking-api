@@ -18,11 +18,11 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignIdFor(Vacancy::class);
             $table->date('date_in');
             $table->date('date_out');
             $table->enum('status', array_column(ReservationStatus::cases(), 'name'));
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
