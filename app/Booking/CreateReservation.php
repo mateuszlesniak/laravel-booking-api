@@ -2,11 +2,13 @@
 
 namespace App\Booking;
 
+use App\Application\Bus\CommandBus;
 use App\Booking\Command\CreateReservationCommand;
-use App\Bus\CommandBus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use InvalidArgumentException;
 
 class CreateReservation extends Controller
 {
@@ -19,23 +21,15 @@ class CreateReservation extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-        /**
-         * @todo
-         * - configure properly route
-         * - get dates, persons and location
-         * - pass data to command
-         * - serve exceptions
-         * - return json response
-         */
-        $startDate = $request->date('start_date');
-        $endDate = $request->date('end_date');
+        try {
+            $createReservationPayload = $this->extractArgumentsToObject($request, CreateReservationPayload::class);
 
-        $this->commandBus->dispatch(
-            new CreateReservationCommand(
-                '2024-01-01',
-                '2024-02-01',
-            )
-        );
+            $this->commandBus->dispatch(new CreateReservationCommand($createReservationPayload));
+        } catch (InvalidArgumentException $exception) {
+            return response()->json($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json(null, Response::HTTP_CREATED);
     }
 
 }
