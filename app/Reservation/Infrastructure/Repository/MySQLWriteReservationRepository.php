@@ -56,7 +56,7 @@ final readonly class MySQLWriteReservationRepository implements WriteReservation
             ]);
 
             $reservationVacancies[] =
-                $this->reservationTransformer->createReservationVacancyDTOFromEntity($reservationVacancy);
+                $this->reservationTransformer->createReservationVacancyDTO($reservationVacancy);
         }
 
         $reservationDTO->setReservationVacancies($reservationVacancies);
@@ -74,7 +74,7 @@ final readonly class MySQLWriteReservationRepository implements WriteReservation
             'status' => ReservationStatus::PLACED,
         ]);
 
-        $reservationDTO = $this->reservationTransformer->createReservationDTOFromEntity($reservation, $reservationDTO);
+        $reservationDTO = $this->reservationTransformer->createReservationDTO($reservation, $reservationDTO);
         $reservationDTO = $this->createReservationVacancies($reservationDTO, $reservation);
 
         return $reservationDTO;

@@ -14,13 +14,15 @@ final readonly class ReservationTransformer
 {
     public function __construct(
         private LocationTransformer $locationTransformer,
-    ) {
+    )
+    {
     }
 
-    public function createReservationDTOFromEntity(
+    public function createReservationDTO(
         Reservation $reservation,
         ?ReservationDTO $reservationDTO = null,
-    ): ReservationDTO {
+    ): ReservationDTO
+    {
         $reservationDTO = $reservationDTO ?? new ReservationDTO();
 
         $reservationDTO
@@ -30,16 +32,23 @@ final readonly class ReservationTransformer
             ->setStatus($reservation->status);
 
         $reservationDTO->setLocationDTO(
-            $this->locationTransformer->createLocationDTOFromLocationEntity($reservation->location)
+            $this->locationTransformer->createLocationDTOFromEntity($reservation->location)
         );
+
+        foreach ($reservation->reservationVacancies() as $reservationVacancy) {
+            $reservationDTO->addReservationVacancies(
+                $this->createReservationVacancyDTO($reservationVacancy)
+            );
+        }
 
         return $reservationDTO;
     }
 
-    public function createReservationVacancyDTOFromEntity(
+    public function createReservationVacancyDTO(
         ReservationVacancy $reservationVacancy,
         ?ReservationVacancyDTO $reservationVacancyDTO = null,
-    ): ReservationVacancyDTO {
+    ): ReservationVacancyDTO
+    {
         $reservationVacancyDTO = $reservationVacancyDTO ?? new ReservationVacancyDTO();
 
         $reservationVacancyDTO->setVacancyDTO(

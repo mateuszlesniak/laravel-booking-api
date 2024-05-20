@@ -23,7 +23,7 @@ class CreateReservation extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $createReservationPayload = $this->extractArgumentsToObject($request, CreateReservationDTO::class);
+            $createReservationPayload = $this->extractPayload($request, CreateReservationDTO::class);
 
             $this->commandBus->dispatch(new CreateReservationCommand($createReservationPayload));
         } catch (LocationNotFound $exception) {

@@ -11,7 +11,7 @@ use App\Location\Infrastructure\Model\Vacancy;
 
 class LocationTransformer
 {
-    public function createLocationDTOFromLocationEntity(
+    public function createLocationDTOFromEntity(
         Location $location,
         ?LocationDTO $locationDTO = null,
     ): LocationDTO {

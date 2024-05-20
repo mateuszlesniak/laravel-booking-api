@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Reservation\Infrastructure\Provider;
 
+use App\Reservation\Application\Repository\ReadReservationRepositoryInterface;
 use App\Reservation\Application\Repository\WriteReservationRepositoryInterface;
 use App\Reservation\Infrastructure\Bus\Command\CreateReservationCommand;
 use App\Reservation\Infrastructure\Bus\Command\CreateReservationCommandHandler;
+use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQuery;
+use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQueryHandler;
+use App\Reservation\Infrastructure\Repository\MySQLReadReservationRepository;
 use App\Reservation\Infrastructure\Repository\MySQLWriteReservationRepository;
 use App\Shared\Application\Bus\CommandBus;
 use App\Shared\Application\Bus\QueryBus;
@@ -19,7 +23,14 @@ class ReservationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(WriteReservationRepositoryInterface::class, MySQLWriteReservationRepository::class);
+        $bindings = [
+            WriteReservationRepositoryInterface::class => MySQLWriteReservationRepository::class,
+            ReadReservationRepositoryInterface::class => MySQLReadReservationRepository::class,
+        ];
+
+        foreach ($bindings as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
     }
 
     /**
@@ -47,6 +58,7 @@ class ReservationServiceProvider extends ServiceProvider
         $queryBus = app(QueryBus::class);
 
         $queryBus->register([
+            SearchUserReservationQuery::class => SearchUserReservationQueryHandler::class,
         ]);
     }
 }

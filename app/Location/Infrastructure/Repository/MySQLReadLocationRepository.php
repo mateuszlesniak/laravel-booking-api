@@ -25,6 +25,6 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
             return null;
         }
 
-        return $this->locationTransformer->createLocationDTOFromLocationEntity($location);
+        return $this->locationTransformer->createLocationDTOFromEntity($location);
     }
 }

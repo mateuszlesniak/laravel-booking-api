@@ -116,4 +116,11 @@ final class ReservationDTO
 
         return $this;
     }
+
+    public function addReservationVacancies(ReservationVacancyDTO $reservationVacancy): ReservationDTO
+    {
+        $this->reservationVacancies[] = $reservationVacancy;
+
+        return $this;
+    }
 }

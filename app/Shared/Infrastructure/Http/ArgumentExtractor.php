@@ -14,7 +14,7 @@ trait ArgumentExtractor
 {
     private const string WORD_SEPARATOR = '_';
 
-    public function extractArgumentsToObject(Request $request, string $className): object
+    public function extractPayload(Request $request, string $className): object
     {
         if (!class_exists($className)) {
             throw new BadConversionException();
