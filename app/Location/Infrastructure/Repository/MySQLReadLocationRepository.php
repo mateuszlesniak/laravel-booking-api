@@ -13,11 +13,11 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
 {
     public function __construct(
         private LocationTransformer $locationTransformer,
-    )
-    {
+    ) {
     }
 
-    #[\Override] public function findAll(): array
+    #[\Override]
+    public function findAll(): array
     {
         $locations = [];
 
