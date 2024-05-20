@@ -35,9 +35,9 @@ class LocationTransformer
 
         $vacancyDTO
             ->setId($vacancy->id)
-            ->setDate($vacancy->date)
+            ->setDate(new \DateTimeImmutable($vacancy->date))
             ->setSlots($vacancy->slots);
 
-        return $vacancy;
+        return $vacancyDTO;
     }
 }

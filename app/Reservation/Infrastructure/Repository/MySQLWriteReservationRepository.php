@@ -28,10 +28,11 @@ final readonly class MySQLWriteReservationRepository implements WriteReservation
             $reservationDTO = $this->createNewReservation($reservationDTO);
         } catch (\Exception $exception) {
             DB::rollBack();
+
+            throw $exception;
         }
 
-        DB::rollBack();
-        //        DB::commit();
+        DB::commit();
 
         return $reservationDTO;
     }
@@ -59,6 +60,8 @@ final readonly class MySQLWriteReservationRepository implements WriteReservation
         }
 
         $reservationDTO->setReservationVacancies($reservationVacancies);
+
+        return $reservationDTO;
     }
 
     private function createNewReservation(ReservationDTO $reservationDTO): ReservationDTO
@@ -66,8 +69,8 @@ final readonly class MySQLWriteReservationRepository implements WriteReservation
         $reservation = Reservation::create([
             'user_id' => 1,
             'location_id' => $reservationDTO->getLocationDTO()->getId(),
-            'date_in' => $reservationDTO->getStartDate(),
-            'date_out' => $reservationDTO->getEndDate(),
+            'date_in' => $reservationDTO->getStartDate()->format('Y-m-d'),
+            'date_out' => $reservationDTO->getEndDate()->format('Y-m-d'),
             'status' => ReservationStatus::PLACED,
         ]);
 

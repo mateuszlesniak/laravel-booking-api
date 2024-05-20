@@ -7,17 +7,25 @@ namespace App\Reservation\Infrastructure\Model;
 use App\Location\Infrastructure\Model\Location;
 use App\User\Infrastructure\Model\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reservation extends Model
 {
-    public function user(): HasOne
+    protected $fillable = [
+        'user_id',
+        'location_id',
+        'date_in',
+        'date_out',
+        'status',
+    ];
+
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function location(): HasOne
+    public function location(): BelongsTo
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 }

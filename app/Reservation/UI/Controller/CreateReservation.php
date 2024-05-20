@@ -26,10 +26,10 @@ class CreateReservation extends Controller
             $createReservationPayload = $this->extractArgumentsToObject($request, CreateReservationDTO::class);
 
             $this->commandBus->dispatch(new CreateReservationCommand($createReservationPayload));
-        } catch (\InvalidArgumentException $exception) {
-            return response()->json($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         } catch (LocationNotFound $exception) {
             return response()->json($exception->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\InvalidArgumentException|\Exception $exception) {
+            return response()->json($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
         return response()->json(null, Response::HTTP_CREATED);

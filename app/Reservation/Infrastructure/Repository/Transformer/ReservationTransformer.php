@@ -6,7 +6,6 @@ namespace App\Reservation\Infrastructure\Repository\Transformer;
 
 use App\Location\Infrastructure\Repository\Transformer\LocationTransformer;
 use App\Reservation\Application\DTO\ReservationDTO;
-use App\Reservation\Application\DTO\ReservationStatus;
 use App\Reservation\Application\DTO\ReservationVacancyDTO;
 use App\Reservation\Infrastructure\Model\Reservation;
 use App\Reservation\Infrastructure\Model\ReservationVacancy;
@@ -26,13 +25,15 @@ final readonly class ReservationTransformer
 
         $reservationDTO
             ->setUser($reservation->user)
-            ->setStartDate($reservation->date_in)
-            ->setEndDate($reservation->date_out)
-            ->setStatus(ReservationStatus::fromName($reservation->status));
+            ->setStartDate(new \DateTimeImmutable($reservation->date_in))
+            ->setEndDate(new \DateTimeImmutable($reservation->date_out))
+            ->setStatus($reservation->status);
 
         $reservationDTO->setLocationDTO(
             $this->locationTransformer->createLocationDTOFromLocationEntity($reservation->location)
         );
+
+        return $reservationDTO;
     }
 
     public function createReservationVacancyDTOFromEntity(
