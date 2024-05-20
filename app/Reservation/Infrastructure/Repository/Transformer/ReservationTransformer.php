@@ -31,7 +31,7 @@ final readonly class ReservationTransformer
             ->setStatus($reservation->status);
 
         $reservationDTO->setLocationDTO(
-            $this->locationTransformer->createLocationDTOFromEntity($reservation->location)
+            $this->locationTransformer->createLocationDTO($reservation->location)
         );
 
         foreach ($reservation->reservationVacancies() as $reservationVacancy) {
@@ -50,7 +50,7 @@ final readonly class ReservationTransformer
         $reservationVacancyDTO = $reservationVacancyDTO ?? new ReservationVacancyDTO();
 
         $reservationVacancyDTO->setVacancyDTO(
-            $this->locationTransformer->createVacancyDTOFromEntity($reservationVacancy->vacancy)
+            $this->locationTransformer->createVacancyDTO($reservationVacancy->vacancy)
         );
 
         return $reservationVacancyDTO;

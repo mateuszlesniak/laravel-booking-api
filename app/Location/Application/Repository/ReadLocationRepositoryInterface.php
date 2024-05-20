@@ -8,5 +8,7 @@ use App\Location\Application\DTO\LocationDTO;
 
 interface ReadLocationRepositoryInterface
 {
+    public function findAll(): array;
+
     public function findByLocationCode(string $locationCode): ?LocationDTO;
 }

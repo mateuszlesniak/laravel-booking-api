@@ -13,7 +13,19 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
 {
     public function __construct(
         private LocationTransformer $locationTransformer,
-    ) {
+    )
+    {
+    }
+
+    #[\Override] public function findAll(): array
+    {
+        $locations = [];
+
+        foreach (Location::all() as $location) {
+            $locations[] = $this->locationTransformer->createLocationDTO($location);
+        }
+
+        return $locations;
     }
 
     #[\Override]
@@ -25,6 +37,6 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
             return null;
         }
 
-        return $this->locationTransformer->createLocationDTOFromEntity($location);
+        return $this->locationTransformer->createLocationDTO($location);
     }
 }
