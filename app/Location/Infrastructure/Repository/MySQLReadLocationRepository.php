@@ -8,12 +8,15 @@ use App\Location\Application\DTO\LocationDTO;
 use App\Location\Application\Repository\ReadLocationRepositoryInterface;
 use App\Location\Infrastructure\Model\Location;
 use App\Location\Infrastructure\Repository\Transformer\LocationTransformer;
+use App\Shared\Infrastructure\Repository\BaseRepository;
 
-final readonly class MySQLReadLocationRepository implements ReadLocationRepositoryInterface
+final class MySQLReadLocationRepository extends BaseRepository implements ReadLocationRepositoryInterface
 {
     public function __construct(
-        private LocationTransformer $locationTransformer,
+        private readonly LocationTransformer $locationTransformer,
+        Location $model,
     ) {
+        parent::__construct($model);
     }
 
     #[\Override]
@@ -21,7 +24,7 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
     {
         $locations = [];
 
-        foreach (Location::all() as $location) {
+        foreach ($this->model->all() as $location) {
             $locations[] = $this->locationTransformer->createLocationDTO($location);
         }
 
@@ -31,7 +34,7 @@ final readonly class MySQLReadLocationRepository implements ReadLocationReposito
     #[\Override]
     public function findByLocationCode(string $locationCode): ?LocationDTO
     {
-        $location = Location::whereLocationCode($locationCode)->first();
+        $location = $this->model->whereLocationCode($locationCode)->first();
 
         if (!$location) {
             return null;
