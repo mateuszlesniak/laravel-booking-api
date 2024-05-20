@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Reservation\Infrastructure\Bus\Query;
 
 use App\Reservation\Application\Repository\ReadReservationRepositoryInterface;
@@ -12,13 +14,12 @@ final readonly class SearchUserReservationQueryHandler implements QueryHandler
     public function __construct(
         private ReadReservationRepositoryInterface $reservationRepository,
         private ReadUserRepositoryInterface $userRepository,
-    )
-    {
+    ) {
     }
 
     public function handle(SearchUserReservationQuery $query): void
     {
-        $userDTO = $this->userRepository->findUserById($query->payload->getUserId());
+        $userDTO = $this->userRepository->findUserById($query->request->integer('user_id'));
 
         if (!$userDTO) {
             throw new UserNotFound();

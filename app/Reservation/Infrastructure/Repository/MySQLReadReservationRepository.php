@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Reservation\Infrastructure\Repository;
 
 use App\Reservation\Application\DTO\ReservationDTO;
@@ -12,15 +14,14 @@ final class MySQLReadReservationRepository implements ReadReservationRepositoryI
 {
     public function __construct(
         private readonly ReservationTransformer $transformer,
-    )
-    {
+    ) {
     }
 
     /**
-     * @param UserDTO $user
      * @return array|ReservationDTO[]
      */
-    #[\Override] public function findUserReservations(UserDTO $user): array
+    #[\Override]
+    public function findUserReservations(UserDTO $user): array
     {
         $reservations = [];
         foreach (Reservation::whereUserId($user->getId())->get() as $reservation) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Location\Infrastructure\Http\Resources;
+namespace App\Location\UI\Controller\Resources;
 
 use App\Location\Infrastructure\Model\Location;
 use Illuminate\Http\Request;

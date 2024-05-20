@@ -14,18 +14,17 @@ final readonly class ReservationTransformer
 {
     public function __construct(
         private LocationTransformer $locationTransformer,
-    )
-    {
+    ) {
     }
 
     public function createReservationDTO(
         Reservation $reservation,
         ?ReservationDTO $reservationDTO = null,
-    ): ReservationDTO
-    {
+    ): ReservationDTO {
         $reservationDTO = $reservationDTO ?? new ReservationDTO();
 
         $reservationDTO
+            ->setId($reservation->id)
             ->setUser($reservation->user)
             ->setStartDate(new \DateTimeImmutable($reservation->date_in))
             ->setEndDate(new \DateTimeImmutable($reservation->date_out))
@@ -47,8 +46,7 @@ final readonly class ReservationTransformer
     public function createReservationVacancyDTO(
         ReservationVacancy $reservationVacancy,
         ?ReservationVacancyDTO $reservationVacancyDTO = null,
-    ): ReservationVacancyDTO
-    {
+    ): ReservationVacancyDTO {
         $reservationVacancyDTO = $reservationVacancyDTO ?? new ReservationVacancyDTO();
 
         $reservationVacancyDTO->setVacancyDTO(

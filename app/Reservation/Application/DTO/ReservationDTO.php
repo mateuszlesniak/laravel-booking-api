@@ -11,8 +11,8 @@ final class ReservationDTO
 {
     private int $id;
     private User $user;
-    private \DateTimeImmutable $startDate;
-    private \DateTimeImmutable $endDate;
+    private \DateTimeInterface $startDate;
+    private \DateTimeInterface $endDate;
     private LocationDTO $locationDTO;
     private int $persons;
     private ReservationStatus $status;
@@ -45,24 +45,24 @@ final class ReservationDTO
         return $this;
     }
 
-    public function getStartDate(): \DateTimeImmutable
+    public function getStartDate(): \DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeImmutable $startDate): ReservationDTO
+    public function setStartDate(\DateTimeInterface $startDate): ReservationDTO
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDate(): \DateTimeImmutable
+    public function getEndDate(): \DateTimeInterface
     {
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeImmutable $endDate): ReservationDTO
+    public function setEndDate(\DateTimeInterface $endDate): ReservationDTO
     {
         $this->endDate = $endDate;
 

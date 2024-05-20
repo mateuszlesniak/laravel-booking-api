@@ -21,13 +21,6 @@ class Reservation extends Model
         'status',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'status' => ReservationStatus::class,
-        ];
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -41,5 +34,12 @@ class Reservation extends Model
     public function reservationVacancies(): HasMany
     {
         return $this->hasMany(ReservationVacancy::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => ReservationStatus::class,
+        ];
     }
 }

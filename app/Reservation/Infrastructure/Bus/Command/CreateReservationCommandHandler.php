@@ -20,17 +20,17 @@ final readonly class CreateReservationCommandHandler implements CommandHandler
 
     public function handle(CreateReservationCommand $command): void
     {
-        $locationDTO = $this->locationRepository->findByLocationCode($command->payload->getLocationCode());
+        $locationDTO = $this->locationRepository->findByLocationCode($command->request->string('location_code')->toString());
 
         if (!$locationDTO) {
-            throw new LocationNotFound($command->payload->getLocationCode());
+            throw new LocationNotFound($command->request->string('location_code')->toString());
         }
 
         $reservationDTO = (new ReservationDTO())
-            ->setStartDate($command->payload->getStartDate())
-            ->setEndDate($command->payload->getEndDate())
+            ->setStartDate($command->request->date('start_date'))
+            ->setEndDate($command->request->date('end_date'))
             ->setLocationDTO($locationDTO)
-            ->setPersons($command->payload->getPersons());
+            ->setPersons($command->request->integer('persons'));
 
         $this->reservationService->validateReservationDetails($reservationDTO);
 

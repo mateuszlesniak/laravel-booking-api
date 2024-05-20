@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\User\Infrastructure\Provider;
 
 use App\User\Application\Repository\ReadUserRepositoryInterface;
@@ -28,5 +30,4 @@ class UserServiceProvider extends ServiceProvider
     public function boot(): void
     {
     }
-
 }

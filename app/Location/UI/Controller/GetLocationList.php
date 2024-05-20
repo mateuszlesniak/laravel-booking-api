@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Location\UI\Controller;
 
-use App\Location\Infrastructure\Http\Resources\LocationResource;
 use App\Location\Infrastructure\Model\Location;
+use App\Location\UI\Controller\Resources\LocationResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
