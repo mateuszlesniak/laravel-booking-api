@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Location\Infrastructure\Provider;
 
-use App\Location\Application\Repository\ReadLocationRepositoryInterface;
-use App\Location\Infrastructure\Repository\MySQLReadLocationRepository;
-use App\Shared\Application\Bus\CommandBus;
-use App\Shared\Application\Bus\QueryBus;
+use App\Location\Infrastructure\Repository\MySQL\ReadLocationRepository;
 use Illuminate\Support\ServiceProvider;
 
 class LocationServiceProvider extends ServiceProvider
@@ -17,33 +14,12 @@ class LocationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ReadLocationRepositoryInterface::class, MySQLReadLocationRepository::class);
-    }
+        $bindings = [
+            \App\Location\Domain\Repository\ReadLocationRepository::class => ReadLocationRepository::class,
+        ];
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        $this->registerCommands();
-        $this->registerQueries();
-    }
-
-    private function registerCommands(): void
-    {
-        /** @var CommandBus $commandBus */
-        $commandBus = app(CommandBus::class);
-
-        $commandBus->register([
-        ]);
-    }
-
-    private function registerQueries(): void
-    {
-        /** @var QueryBus $queryBus */
-        $queryBus = app(QueryBus::class);
-
-        $queryBus->register([
-        ]);
+        foreach ($bindings as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
     }
 }
