@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Reservation\Application\Exception;
+namespace App\Reservation\Domain\Exception;
 
-class InsufficientSpaceException extends \Exception
+class LocationVacancyNotAvailable extends \Exception
 {
     public function __construct()
     {

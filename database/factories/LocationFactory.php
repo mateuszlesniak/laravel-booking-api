@@ -27,7 +27,8 @@ class LocationFactory extends Factory
                 ),
             'address' => fake()->address(),
             'country' => fake()->countryCode(),
-            'location_code' => strtoupper(fake()->unique()->bothify('???###'))
+            'location_code' => strtoupper(fake()->unique()->bothify('???###')),
+            'is_active' => fake()->boolean(),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Reservation\Infrastructure\Bus\Command;
+namespace App\Reservation\Application\UseCase\Command;
 
 use App\Reservation\UI\Controller\Request\StoreReservationRequest;
 use App\Shared\Application\Bus\Command\Command;

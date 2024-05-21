@@ -14,7 +14,11 @@ class Location extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'address',
+        'country',
         'location_code',
+        'is_active'
     ];
 
     public function vacancies(): HasMany

@@ -2,34 +2,35 @@
 
 declare(strict_types=1);
 
-namespace App\Reservation\Infrastructure\Bus\Command;
+namespace App\Reservation\Application\UseCase\Command;
 
 use App\Location\Application\Exception\LocationNotFound;
-use App\Location\Domain\Repository\ReadLocationRepository;
+use App\Location\Application\Service\ReserveLocationService;
 use App\Reservation\Application\DTO\ReservationDTO;
-use App\Reservation\Application\Exception\InsufficientSpaceException;
 use App\Reservation\Application\Service\ReservationService;
+use App\Reservation\Domain\Exception\LocationVacancyNotAvailable;
 use App\Shared\Application\Bus\Command\CommandHandler;
 
 final readonly class CreateReservationCommandHandler implements CommandHandler
 {
     public function __construct(
         private ReservationService $reservationService,
-        private ReadLocationRepository $locationRepository,
-    ) {
+        private ReserveLocationService $reserveLocationService,
+    )
+    {
     }
 
     /**
-     * @throws InsufficientSpaceException
+     * @throws LocationVacancyNotAvailable
      * @throws LocationNotFound
      */
     public function handle(CreateReservationCommand $command): void
     {
-        $locationDTO = $this->locationRepository->findByLocationCode($command->request->string('location_code')->toString());
-
-        if (!$locationDTO) {
-            throw new LocationNotFound($command->request->string('location_code')->toString());
-        }
+        $locationDTO = $this->reserveLocationService->getLocationWithVacancies(
+            $command->request->string('location_code')->toString(),
+            $command->request->date('start_date'),
+            $command->request->date('end_date'),
+        );
 
         $reservationDTO = (new ReservationDTO())
             ->setStartDate($command->request->date('start_date'))
@@ -37,10 +38,7 @@ final readonly class CreateReservationCommandHandler implements CommandHandler
             ->setLocationDTO($locationDTO)
             ->setPersons($command->request->integer('persons'));
 
-        if (!$this->reservationService->canReservationBePlaced($reservationDTO)) {
-            throw new InsufficientSpaceException();
-        }
-
+        $this->reservationService->checkIfReservationBePlaced($reservationDTO);
         $this->reservationService->createReservation($reservationDTO);
     }
 }

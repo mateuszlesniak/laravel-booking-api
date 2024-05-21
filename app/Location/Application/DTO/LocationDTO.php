@@ -11,6 +11,8 @@ final class LocationDTO
     private string $address;
     private string $countryCode;
     private string $locationCode;
+    private bool $isActive;
+
     /**
      * @var array|VacancyDTO[]
      */
@@ -85,6 +87,17 @@ final class LocationDTO
     {
         $this->vacancies = $vacancies;
 
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): LocationDTO
+    {
+        $this->isActive = $isActive;
         return $this;
     }
 }

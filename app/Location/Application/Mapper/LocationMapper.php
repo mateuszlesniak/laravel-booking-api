@@ -16,6 +16,7 @@ class LocationMapper
             ->setName($location->name)
             ->setAddress($location->address)
             ->setCountryCode($location->country)
-            ->setLocationCode($location->location_code);
+            ->setLocationCode($location->location_code)
+            ->setIsActive((bool)$location->is_active);
     }
 }
