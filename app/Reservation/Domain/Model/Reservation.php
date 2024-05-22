@@ -25,13 +25,12 @@ class Reservation extends AggregateRoot
         public readonly DateOut $dateOut,
         int $persons,
         public readonly ReservationVacancies $reservationVacancies,
-    )
-    {
+    ) {
         if ($persons < 1) {
             throw new NotSelectedPersons();
         }
 
-        if($this->dateOut->toDate()->lt($this->dateIn->toDate())) {
+        if ($this->dateOut->toDate()->lt($this->dateIn->toDate())) {
             throw new IncorrectDateRange();
         }
 
