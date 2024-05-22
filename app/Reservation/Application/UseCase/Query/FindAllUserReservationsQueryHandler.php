@@ -23,7 +23,9 @@ final readonly class FindAllUserReservationsQueryHandler implements QueryHandler
         $user = $this->userRepository->findById(1);
 
         $query->setReservations(
-            $this->reservationRepository->findAll($user),
+            $this->reservationRepository
+                ->filterUser($user)
+                ->findAll(),
         );
     }
 }

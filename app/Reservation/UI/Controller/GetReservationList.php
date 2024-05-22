@@ -25,8 +25,8 @@ class GetReservationList extends Controller
             $query = new FindAllUserReservationsQuery();
             $this->queryBus->query($query);
 
-            return response()->json(ReservationResource::collection($query));
-        } catch (\Exception) {
+            return response()->json(ReservationResource::collection($query->toArray()));
+        } catch (\Exception $exception) {
             return $this->jsonResponseException(Response::HTTP_BAD_REQUEST);
         }
     }

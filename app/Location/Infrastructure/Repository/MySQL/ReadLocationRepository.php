@@ -25,7 +25,7 @@ final class ReadLocationRepository extends BaseRepository implements ReadLocatio
     public function findAll(): Collection
     {
         return $this->queryBuilder()->get()->map(function (LocationEntity $locationEntity) {
-            return LocationMapper::fromEloquent($locationEntity);
+            return $this->locationMapper->fromEloquent($locationEntity);
         });
     }
 

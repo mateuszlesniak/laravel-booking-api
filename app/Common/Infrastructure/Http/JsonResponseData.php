@@ -13,7 +13,7 @@ final readonly class JsonResponseData implements \JsonSerializable
     ) {
     }
 
-    public static function fromException(\Exception $exception): self
+    public static function fromException(?\Exception $exception = null): self
     {
         return new self(
             null,

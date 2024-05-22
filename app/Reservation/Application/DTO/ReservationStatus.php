@@ -6,6 +6,7 @@ namespace App\Reservation\Application\DTO;
 
 enum ReservationStatus
 {
+    case NEW;
     case PLACED;
     case CONFIRMED;
     case EXPIRED;

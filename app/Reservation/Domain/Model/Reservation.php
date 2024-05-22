@@ -11,6 +11,7 @@ use App\Reservation\Domain\Exception\NotSelectedPersons;
 use App\Reservation\Domain\Model\ValueObject\DateIn;
 use App\Reservation\Domain\Model\ValueObject\DateOut;
 use App\Reservation\Domain\Model\ValueObject\ReservationVacancies;
+use App\Reservation\Domain\Model\ValueObject\Status;
 use App\User\Domain\Model\User;
 
 class Reservation extends AggregateRoot
@@ -25,6 +26,7 @@ class Reservation extends AggregateRoot
         public readonly DateOut $dateOut,
         int $persons,
         public readonly ReservationVacancies $reservationVacancies,
+        public readonly Status $status,
     ) {
         if ($persons < 1) {
             throw new NotSelectedPersons();

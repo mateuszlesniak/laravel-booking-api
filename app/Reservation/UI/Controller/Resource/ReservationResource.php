@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Reservation\UI\Controller\Resource;
 
 use App\Location\UI\Controller\Resources\LocationResource;
-use App\Reservation\Application\DTO\ReservationData;
+use App\Reservation\Domain\Model\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,15 +18,13 @@ class ReservationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        /* @var ReservationData $this */
+        /* @var Reservation $this */
         return [
-            'id' => $this->getId(),
-            'location' => LocationResource::make(
-                $this->getLocationDTO(),
-            ),
-            'date_in' => $this->getStartDate()->format('Y-m-d'),
-            'date_out' => $this->getEndDate()->format('Y-m-d'),
-            'status' => $this->getStatus()->name,
+            'id' => $this->id,
+            'location_code' => $this->locationCode,
+            'date_in' => $this->dateIn,
+            'date_out' => $this->dateOut,
+            'status' => $this->status,
         ];
     }
 }

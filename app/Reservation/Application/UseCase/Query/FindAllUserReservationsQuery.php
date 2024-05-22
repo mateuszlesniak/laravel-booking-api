@@ -7,7 +7,7 @@ namespace App\Reservation\Application\UseCase\Query;
 use App\Common\Application\Bus\Query\Query;
 use Illuminate\Support\Collection;
 
-final class FindAllUserReservationsQuery implements Query, \JsonSerializable
+final class FindAllUserReservationsQuery implements Query
 {
     private Collection $reservations;
 
@@ -16,9 +16,8 @@ final class FindAllUserReservationsQuery implements Query, \JsonSerializable
         $this->reservations = $reservations;
     }
 
-    #[\Override]
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
-        return $this->reservations;
+        return $this->reservations->toArray();
     }
 }
