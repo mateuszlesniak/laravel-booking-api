@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Exception;
 
-class IncorrectDateRange extends \Exception
+class IncorrectDateRange extends \DomainException
 {
     public function __construct()
     {

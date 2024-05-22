@@ -9,7 +9,6 @@ use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use App\Reservation\Domain\Model\Reservation;
 use App\Reservation\Domain\Model\ValueObject\DateIn;
 use App\Reservation\Domain\Model\ValueObject\DateOut;
-use App\Reservation\Domain\Model\ValueObject\ReservationStatus;
 use App\Reservation\Domain\Model\ValueObject\ReservationVacancies;
 use App\Reservation\Domain\Model\ValueObject\Status;
 use App\Reservation\Infrastructure\Model\Eloquent\ReservationEntity;
@@ -23,8 +22,7 @@ final readonly class ReservationMapper
 {
     public function __construct(
         private ReservationVacancyMapper $reservationVacancyMapper,
-    )
-    {
+    ) {
     }
 
     public function fromRequest(StoreReservationRequest $request): Reservation
@@ -36,10 +34,10 @@ final readonly class ReservationMapper
                 name: new Name(null, true),
                 email: new Email('test@example.com'),
             ),
-            locationCode: new LocationCode($request->string('location_code')->toString()),
-            dateIn: new DateIn($request->string('date_in')->toString()),
-            dateOut: new DateOut($request->string('date_out')->toString()),
-            persons: $request->integer('persons'),
+            locationCode: new LocationCode($request->validated('location_code')),
+            dateIn: new DateIn($request->validated('date_in')),
+            dateOut: new DateOut($request->validated('date_out')),
+            persons: (int) $request->validated('persons'),
             reservationVacancies: new ReservationVacancies([]),
             status: new Status(),
         );
@@ -72,8 +70,7 @@ final readonly class ReservationMapper
     public function toEloquent(
         Reservation $reservation,
         ?ReservationEntity $entity = new ReservationEntity(),
-    ): ReservationEntity
-    {
+    ): ReservationEntity {
         $entity->user_id = 1;
         $entity->location_id = LocationEntity::query()->whereLocationCode($reservation->locationCode)->firstOrFail()->id;
         $entity->date_in = $reservation->dateIn->toDate();

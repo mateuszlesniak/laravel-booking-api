@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Location\Application\Exception;
+namespace App\Reservation\Domain\Exception;
 
 class LocationNotFound extends \Exception
 {

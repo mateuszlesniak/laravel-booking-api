@@ -18,6 +18,7 @@ final readonly class ReservationVacancyMapper
             vacancyId: $entity->vacancy->id,
             date: new Date($entity->vacancy->date->format('Y-m-d')),
             persons: $entity->persons,
+            reservationId: $entity->reservation_id,
         );
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Exception;
 
-class LocationVacancyNotAvailable extends \Exception
+class LocationVacancyNotAvailable extends \DomainException
 {
     public function __construct()
     {

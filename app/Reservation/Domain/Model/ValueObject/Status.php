@@ -24,12 +24,12 @@ class Status extends ValueObject implements \Stringable
 
     public function __toString(): string
     {
-        return ucfirst(mb_strtolower($this->value->name));
+        return $this->value->value;
     }
 
-    #[\Override] public function jsonSerialize(): mixed
+    #[\Override]
+    public function jsonSerialize(): string
     {
-        return ucfirst(mb_strtolower($this->value->name));
+        return $this->value->value;
     }
-
 }

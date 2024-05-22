@@ -11,7 +11,7 @@ class StoreReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_in' => ['required', 'date', 'date_format:Y-m-d'],
+            'date_in' => ['required', 'date', 'date_format:Y-m-d', 'after:today'],
             'date_out' => ['required', 'date', 'date_format:Y-m-d'],
             'location_code' => ['required', 'string', 'max:6'],
             'persons' => ['required', 'integer'],

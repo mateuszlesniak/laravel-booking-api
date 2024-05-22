@@ -15,8 +15,7 @@ class ReadUserRepository extends BaseRepository implements ReadUserRepositoryInt
 {
     public function __construct(
         private readonly UserMapper $transformer,
-    )
-    {
+    ) {
     }
 
     #[\Override]

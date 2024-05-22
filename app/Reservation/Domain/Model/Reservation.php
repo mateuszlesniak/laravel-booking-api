@@ -49,6 +49,7 @@ class Reservation extends AggregateRoot
             'date_in' => $this->dateIn,
             'date_out' => $this->dateOut,
             'persons' => $this->persons,
+            'status' => $this->status,
         ];
     }
 }
