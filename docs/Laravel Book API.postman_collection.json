@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "be7115b4-f853-4d67-aed1-623cd635498d",
+		"name": "Laravel Book API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28058595"
+	},
+	"item": [
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "Store reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "date_in",
+									"value": "2024-06-02",
+									"type": "text"
+								},
+								{
+									"key": "date_out",
+									"value": "2024-06-04",
+									"type": "text"
+								},
+								{
+									"key": "location_code",
+									"value": "YKP785",
+									"type": "text"
+								},
+								{
+									"key": "persons",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "XDEBUG_SESSION",
+									"value": "PHPSTORM",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/api/reservations",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservation list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost/api/reservations?start_date=2024-05-01&end_date=2024-05-31&location_code=YKP785",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-05-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-05-31"
+								},
+								{
+									"key": "location_code",
+									"value": "YKP785"
+								},
+								{
+									"key": "XDEBUG_SESSION",
+									"value": "PHPSTORM",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Get locations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_date",
+									"value": "2024-06-01",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-06-10",
+									"type": "text"
+								},
+								{
+									"key": "location_code",
+									"value": "BJV607",
+									"type": "text"
+								},
+								{
+									"key": "persons",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "XDEBUG_SESSION",
+									"value": "PHPSTORM",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost/api/locations",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION",
+									"value": "PHPSTORM",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
