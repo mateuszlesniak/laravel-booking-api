@@ -135,33 +135,7 @@
 						],
 						"body": {
 							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "start_date",
-									"value": "2024-06-01",
-									"type": "text"
-								},
-								{
-									"key": "end_date",
-									"value": "2024-06-10",
-									"type": "text"
-								},
-								{
-									"key": "location_code",
-									"value": "BJV607",
-									"type": "text"
-								},
-								{
-									"key": "persons",
-									"value": "3",
-									"type": "text"
-								},
-								{
-									"key": "XDEBUG_SESSION",
-									"value": "PHPSTORM",
-									"type": "text"
-								}
-							]
+							"formdata": []
 						},
 						"url": {
 							"raw": "localhost/api/locations",

@@ -7,60 +7,57 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Project description
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Simple booking api with 3 endpoints:
+```text
+GET /api/locations
+GET /api/reservations
+POST /api/reservations
+```
+Application allows you to make a reservation with given data if they satisfy business requirements:
+1. Must be from future
+1. Location must exists and be active
+1. Location needs free vacancies in given period
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Project installation
 
-## Learning Laravel
+### Applicaiton
+Project is using **Laravel Sail** - install it before -> https://laravel.com/docs/11.x/sail#installation
+1. To configure whole project: `sail build --no-cache` & `sail up -d` 
+1. To configure database with example data: `sail artisan migrate:fresh & sail artisan db:seed`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### API
+Postman collection is located in `/docs` folder
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Testing
+To run tests simply call `sail bin phpunit`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## FAQ
 
-## Laravel Sponsors
+* Why application looks as complicated?
+> I'm constantly learning new things. Since this api could be overengineered I've tried to use as many new thing as I can
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* What you use there?
+> I've tried to implement Domain Driven Development (DDD). It's not ideal, but practice makes perfect :)  
+> Repository pattern (with dividing it to two different channels - read and write).  
+> CQRS - commands for changing system and query for read the data.
+> Strategy pattern - for deciding if reservation can be made
+> Policies (all *allowed*) to decide if action can be performed
 
-### Premium Partners
+* Commits and branches looks messy, right?
+> Right! I've focused on work here. Not all commits messages are meaningful, sorry!  
+> Ideally it should have feature/ branches for new things, bugfix/ for fixes and release/ for packages  
+> After created some working things I could also tag repository to have versioning
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+* Why you wrote as little tests?
+> It's only to show how to use tests, not to cover whole project
 
-## Contributing
+* Did you use any helpers from Internet?
+> Yes! My sources are listed below.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## External Sources
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* AI (ChatGPT) - for simple functions information after providing description what to achieve
+* DDD approach -> https://github.com/Orphail/laravel-ddd/tree/master (mainly for structure)
