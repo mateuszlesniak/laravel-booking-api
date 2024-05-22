@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Reservation\Domain\Model\ValueObject;
+namespace App\Common\Domain\ValueObject;
 
-use App\Common\Domain\ValueObject;
 use Carbon\Carbon;
 
-class Date extends ValueObject
+class Date extends ValueObject implements \Stringable
 {
     private const string DATE_FORMAT = 'Y-m-d';
 
@@ -24,6 +23,11 @@ class Date extends ValueObject
         }
 
         $this->value = $date;
+    }
+
+    public function __toString(): string
+    {
+        return $this->value->toDateString();
     }
 
     #[\Override]

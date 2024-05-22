@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Model\ValueObject;
 
-use App\Common\Domain\ValueObjectArray;
+use App\Common\Domain\ValueObject\ValueObjectArray;
 use App\Reservation\Domain\Model\Entity\ReservationVacancy;
 
 class ReservationVacancies extends ValueObjectArray

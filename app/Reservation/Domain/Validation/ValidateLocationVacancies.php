@@ -26,21 +26,26 @@ readonly class ValidateLocationVacancies implements ReservationValidationStrateg
     public function validate(Reservation $reservation): void
     {
         $locationWithVacancies = $this->locationRepository
-            ->restrictDates($reservation->dateIn->toDate(), $reservation->dateOut->toDate())
-            ->findByLocationCode($reservation->location->value);
+            ->findByLocationCode($reservation->locationCode, true, $reservation->dateIn, $reservation->dateOut);
 
         $existingReservations = $this->reservationRepository
-            ->restrictDates($reservation->dateIn->toDate(), $reservation->dateOut->toDate())
+            ->filterDateFrom($reservation->dateIn)
+            ->filterDateTo($reservation->dateOut)
             ->findAll();
 
-        foreach ($locationWithVacancies->vacancies->toArray() as $vacancy) {
-            $reservation->reservationVacancies->add(
-                $this->reservationVacancyMapper->fromLocationVacancy($vacancy, $reservation->persons)
-            ); // should be extracted to another class, here should be only check
+        if ($locationWithVacancies->vacancies->count()
+            !== $reservation->dateIn->toDate()->diff($reservation->dateOut->toDate())->d + 1) {
+            throw new LocationVacancyNotAvailable();
+        }
 
+        foreach ($locationWithVacancies->vacancies->toArray() as $vacancy) {
             if ($this->calculateFreeSlots($vacancy, $existingReservations) < $reservation->persons) {
                 throw new LocationVacancyNotAvailable();
             }
+
+            $reservation->reservationVacancies->add(
+                $this->reservationVacancyMapper->fromLocationVacancy($vacancy, $reservation->persons)
+            ); // should be extracted to another class, here should be only check
         }
     }
 

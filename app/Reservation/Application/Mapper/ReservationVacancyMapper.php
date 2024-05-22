@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Reservation\Application\Mapper;
 
+use App\Common\Domain\ValueObject\Date;
 use App\Location\Domain\Model\Entity\LocationVacancy;
 use App\Reservation\Domain\Model\Entity\ReservationVacancy;
-use App\Reservation\Domain\Model\ValueObject\Date;
 use App\Reservation\Infrastructure\Model\Eloquent\ReservationVacancyEntity;
 
 final readonly class ReservationVacancyMapper

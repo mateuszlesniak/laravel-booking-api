@@ -9,11 +9,11 @@ use App\Common\Application\Bus\QueryBus;
 use App\Reservation\Application\Service\ReservationService;
 use App\Reservation\Application\UseCase\Command\StoreReservationCommand;
 use App\Reservation\Application\UseCase\Command\StoreReservationCommandHandler;
+use App\Reservation\Application\UseCase\Query\FindAllUserReservationsQuery;
+use App\Reservation\Application\UseCase\Query\FindAllUserReservationsQueryHandler;
 use App\Reservation\Domain\Validation\ReservationValidationStrategy;
 use App\Reservation\Domain\Validation\ValidateLocation;
 use App\Reservation\Domain\Validation\ValidateLocationVacancies;
-use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQuery;
-use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQueryHandler;
 use App\Reservation\Infrastructure\Repository\MySQL\ReadReservationRepository;
 use App\Reservation\Infrastructure\Repository\MySQL\WriteReservationRepository;
 use Illuminate\Support\ServiceProvider;
@@ -54,7 +54,7 @@ class ReservationServiceProvider extends ServiceProvider
         $queryBus = app(QueryBus::class);
 
         $queryBus->register([
-            SearchUserReservationQuery::class => SearchUserReservationQueryHandler::class,
+            FindAllUserReservationsQuery::class => FindAllUserReservationsQueryHandler::class,
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Model;
+namespace App\User\Infrastructure\Model\Eloquent;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class UserEntity extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.

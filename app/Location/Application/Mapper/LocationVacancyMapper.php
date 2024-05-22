@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Location\Application\Mapper;
 
+use App\Common\Domain\ValueObject\Date;
 use App\Location\Application\DTO\VacancyDTO;
 use App\Location\Domain\Model\Entity\LocationVacancy;
 use App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity;
-use App\Reservation\Domain\Model\ValueObject\Date;
 
 class LocationVacancyMapper
 {

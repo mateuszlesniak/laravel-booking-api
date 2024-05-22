@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Reservation\Domain\Model\Entity;
 
 use App\Common\Domain\Entity;
-use App\Reservation\Domain\Model\ValueObject\Date;
+use App\Common\Domain\ValueObject\Date;
 
 class ReservationVacancy extends Entity
 {

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity;
-use App\User\Infrastructure\Model\User;
+use App\User\Infrastructure\Model\Eloquent\UserEntity;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        UserEntity::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);

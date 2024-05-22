@@ -10,4 +10,9 @@ class ReservationPolicy
     {
         return true;
     }
+
+    public static function findAll(): bool
+    {
+        return true;
+    }
 }

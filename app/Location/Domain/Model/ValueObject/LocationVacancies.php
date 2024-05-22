@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Location\Domain\Model\ValueObject;
 
-use App\Common\Domain\ValueObjectArray;
+use App\Common\Domain\ValueObject\ValueObjectArray;
 use App\Location\Domain\Model\Entity\LocationVacancy;
 
 class LocationVacancies extends ValueObjectArray

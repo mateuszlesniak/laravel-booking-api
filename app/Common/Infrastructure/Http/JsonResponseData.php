@@ -34,8 +34,8 @@ final readonly class JsonResponseData implements \JsonSerializable
     {
         if ($this->isError) {
             return [
-                'error' => $this->isProductionEnv() ? true : get_class($this->error),
-                'errorMessage' => $this->error->getMessage(),
+                'error' => $this->isProductionEnv() || !$this->error ? true : get_class($this->error),
+                'errorMessage' => $this->error?->getMessage(),
             ];
         }
 

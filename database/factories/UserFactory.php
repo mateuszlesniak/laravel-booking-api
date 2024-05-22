@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\User\Infrastructure\Model\User;
+use App\User\Infrastructure\Model\Eloquent\UserEntity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\User\Infrastructure\Model\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\User\Infrastructure\Model\Eloquent\UserEntity>
  */
 class UserFactory extends Factory
 {
@@ -17,7 +17,7 @@ class UserFactory extends Factory
      */
     protected static ?string $password;
 
-    protected $model = User::class;
+    protected $model = UserEntity::class;
 
     /**
      * Define the model's default state.

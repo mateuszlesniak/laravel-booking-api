@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Model\ValueObject;
 
+use App\Common\Domain\ValueObject\Date;
 use App\Reservation\Domain\Exception\RequiredException;
 use Carbon\Exceptions\InvalidFormatException;
 

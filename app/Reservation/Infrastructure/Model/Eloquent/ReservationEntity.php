@@ -6,7 +6,7 @@ namespace App\Reservation\Infrastructure\Model\Eloquent;
 
 use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use App\Reservation\Application\DTO\ReservationStatus;
-use App\User\Infrastructure\Model\User;
+use App\User\Infrastructure\Model\Eloquent\UserEntity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,7 +36,7 @@ class ReservationEntity extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserEntity::class);
     }
 
     public function location(): BelongsTo

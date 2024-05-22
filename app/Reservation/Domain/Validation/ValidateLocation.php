@@ -19,7 +19,7 @@ readonly class ValidateLocation implements ReservationValidationStrategy
     public function validate(Reservation $reservation): void
     {
         $locationWithVacancies = $this->locationRepository
-            ->findByLocationCode($reservation->location->value);
+            ->findByLocationCode($reservation->locationCode);
 
         if (!$locationWithVacancies->isActive) {
             throw new LocationNotAvailable();

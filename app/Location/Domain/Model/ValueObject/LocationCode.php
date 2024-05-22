@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Location\Domain\Model\ValueObject;
 
-use App\Common\Domain\ValueObject;
+use App\Common\Domain\ValueObject\ValueObject;
 use App\Reservation\Domain\Exception\RequiredException;
 
-class LocationCode extends ValueObject
+class LocationCode extends ValueObject implements \Stringable
 {
     private string $location_code;
 

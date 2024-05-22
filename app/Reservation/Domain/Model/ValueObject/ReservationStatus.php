@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Model\ValueObject;
 
-use App\Common\Domain\ValueObject;
+use App\Common\Domain\ValueObject\ValueObject;
 use App\Reservation\Application\DTO\ReservationStatus as ReservationStatusEnum;
 use App\Reservation\Domain\Exception\RequiredException;
 

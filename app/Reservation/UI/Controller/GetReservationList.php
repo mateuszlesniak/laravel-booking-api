@@ -6,7 +6,7 @@ namespace App\Reservation\UI\Controller;
 
 use App\Common\Application\Bus\QueryBus;
 use App\Common\Infrastructure\Http\Controllers\Controller;
-use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQuery;
+use App\Reservation\Application\UseCase\Query\FindAllUserReservationsQuery;
 use App\Reservation\UI\Controller\Request\SearchReservationRequest;
 use App\Reservation\UI\Controller\Resource\ReservationResource;
 use Illuminate\Http\JsonResponse;
@@ -22,13 +22,12 @@ class GetReservationList extends Controller
     public function __invoke(SearchReservationRequest $request): JsonResponse
     {
         try {
-            $query = new SearchUserReservationQuery($request);
-
+            $query = new FindAllUserReservationsQuery();
             $this->queryBus->query($query);
-        } catch (\Exception) {
-            return response()->json(null, Response::HTTP_BAD_REQUEST);
-        }
 
-        return response()->json(ReservationResource::collection($query->getReservations()));
+            return response()->json(ReservationResource::collection($query));
+        } catch (\Exception) {
+            return $this->jsonResponseException(Response::HTTP_BAD_REQUEST);
+        }
     }
 }

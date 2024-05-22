@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Location\Application\Mapper;
 
+use App\Common\Domain\ValueObject\Date;
 use App\Location\Domain\Model\Location;
 use App\Location\Domain\Model\ValueObject\Address;
 use App\Location\Domain\Model\ValueObject\Country;
@@ -22,16 +23,24 @@ final readonly class LocationMapper
 
     public function fromEloquent(
         LocationEntity $entity,
-        ?\DateTimeInterface $vacancyDateFrom = null,
-        ?\DateTimeInterface $vacancyDateTo = null,
+        bool $withVacancies = false,
+        ?Date $vacancyDateFrom = null,
+        ?Date $vacancyDateTo = null,
     ): Location {
         $locationVacancies = [];
 
-        if ($vacancyDateFrom || $vacancyDateTo) {
-            $locationVacancies = $entity->vacancies()
-                ->whereDate('date', '>=', $vacancyDateFrom)
-                ->whereDate('date', '<=', $vacancyDateTo)
-                ->get()
+        if ($withVacancies) {
+            $locationVacancies = $entity->vacancies();
+
+            if ($vacancyDateFrom) {
+                $locationVacancies->whereDate('date', '>=', $vacancyDateFrom->toDate()->toDateString());
+            }
+
+            if ($vacancyDateTo) {
+                $locationVacancies->whereDate('date', '<=', $vacancyDateTo->toDate()->toDateString());
+            }
+
+            $locationVacancies = $locationVacancies->get()
                 ->map(function (LocationVacancyEntity $vacancyEntity) {
                     return $this->vacancyMapper->fromEloquent($vacancyEntity);
                 })

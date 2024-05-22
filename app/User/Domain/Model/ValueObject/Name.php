@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Location\Domain\Model\ValueObject;
+namespace App\User\Domain\Model\ValueObject;
 
 use App\Common\Domain\ValueObject\ValueObject;
 use App\Reservation\Domain\Exception\RequiredException;
 
-class Name extends ValueObject
+class Name extends ValueObject implements \Stringable
 {
-    private string $name;
+    private ?string $name;
 
-    public function __construct(?string $name)
+    public function __construct(?string $name = null, bool $isOptional = false)
     {
-        if (!$name) {
+        if (!$name && !$isOptional) {
             throw new RequiredException('name');
         }
 
@@ -22,11 +22,11 @@ class Name extends ValueObject
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->name ?? '';
     }
 
     #[\Override]
-    public function jsonSerialize(): string
+    public function jsonSerialize(): ?string
     {
         return $this->name;
     }
