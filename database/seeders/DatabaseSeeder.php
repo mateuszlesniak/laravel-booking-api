@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
                     })
                     ->afterCreating(function () use (&$date) {
                         $date = new DateTimeImmutable();
-                    })
+                    }), 'vacancies'
             )
             ->create();
     }
