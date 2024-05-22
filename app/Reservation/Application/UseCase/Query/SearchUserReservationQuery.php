@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Reservation\Infrastructure\Bus\Query;
 
-use App\Reservation\Application\DTO\ReservationDTO;
+use App\Common\Application\Bus\Query\Query;
+use App\Reservation\Application\DTO\ReservationData;
 use App\Reservation\UI\Controller\Request\SearchReservationRequest;
-use App\Shared\Application\Bus\Query\Query;
 
 final class SearchUserReservationQuery implements Query
 {
     /**
-     * @var array|ReservationDTO[]
+     * @var array|ReservationData[]
      */
     private array $reservations = [];
 

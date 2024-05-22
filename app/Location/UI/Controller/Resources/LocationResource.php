@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Location\UI\Controller\Resources;
 
-use App\Location\Application\DTO\LocationDTO;
+use App\Location\Application\DTO\LocationData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +17,7 @@ class LocationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        /* @var $this LocationDTO */
+        /* @var $this LocationData */
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),

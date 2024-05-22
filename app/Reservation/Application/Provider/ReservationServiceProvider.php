@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Reservation\Application\Provider;
 
-use App\Reservation\Application\UseCase\Command\CreateReservationCommand;
-use App\Reservation\Application\UseCase\Command\CreateReservationCommandHandler;
+use App\Common\Application\Bus\CommandBus;
+use App\Common\Application\Bus\QueryBus;
+use App\Reservation\Application\Service\ReservationService;
+use App\Reservation\Application\UseCase\Command\StoreReservationCommand;
+use App\Reservation\Application\UseCase\Command\StoreReservationCommandHandler;
+use App\Reservation\Domain\Validation\ReservationValidationStrategy;
+use App\Reservation\Domain\Validation\ValidateLocation;
+use App\Reservation\Domain\Validation\ValidateLocationVacancies;
 use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQuery;
 use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQueryHandler;
 use App\Reservation\Infrastructure\Repository\MySQL\ReadReservationRepository;
 use App\Reservation\Infrastructure\Repository\MySQL\WriteReservationRepository;
-use App\Reservation\Infrastructure\Repository\MySQL\WriteReservationVacancyRepository;
-use App\Shared\Application\Bus\CommandBus;
-use App\Shared\Application\Bus\QueryBus;
 use Illuminate\Support\ServiceProvider;
 
 class ReservationServiceProvider extends ServiceProvider
@@ -22,15 +25,8 @@ class ReservationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $bindings = [
-            \App\Reservation\Domain\Repository\WriteReservationRepository::class => WriteReservationRepository::class,
-            \App\Reservation\Domain\Repository\ReadReservationRepository::class => ReadReservationRepository::class,
-            \App\Reservation\Domain\Repository\WriteReservationVacancyRepository::class => WriteReservationVacancyRepository::class,
-        ];
-
-        foreach ($bindings as $abstract => $concrete) {
-            $this->app->bind($abstract, $concrete);
-        }
+        $this->registerRepositories();
+        $this->registerValidationStrategy();
     }
 
     /**
@@ -38,21 +34,21 @@ class ReservationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerCommands();
-        $this->registerQueries();
+        $this->bootCommands();
+        $this->bootQueries();
     }
 
-    private function registerCommands(): void
+    private function bootCommands(): void
     {
         /** @var CommandBus $commandBus */
         $commandBus = app(CommandBus::class);
 
         $commandBus->register([
-            CreateReservationCommand::class => CreateReservationCommandHandler::class,
+            StoreReservationCommand::class => StoreReservationCommandHandler::class,
         ]);
     }
 
-    private function registerQueries(): void
+    private function bootQueries(): void
     {
         /** @var QueryBus $queryBus */
         $queryBus = app(QueryBus::class);
@@ -60,5 +56,27 @@ class ReservationServiceProvider extends ServiceProvider
         $queryBus->register([
             SearchUserReservationQuery::class => SearchUserReservationQueryHandler::class,
         ]);
+    }
+
+    private function registerRepositories(): void
+    {
+        $bindings = [
+            \App\Reservation\Domain\Repository\WriteReservationRepository::class => WriteReservationRepository::class,
+            \App\Reservation\Domain\Repository\ReadReservationRepository::class => ReadReservationRepository::class,
+        ];
+
+        foreach ($bindings as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
+    }
+
+    private function registerValidationStrategy(): void
+    {
+        $this->app->when(ReservationService::class)
+            ->needs(ReservationValidationStrategy::class)
+            ->give([
+                ValidateLocation::class,
+                ValidateLocationVacancies::class,
+            ], );
     }
 }

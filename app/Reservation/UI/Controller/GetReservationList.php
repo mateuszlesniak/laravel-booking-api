@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Reservation\UI\Controller;
 
+use App\Common\Application\Bus\QueryBus;
+use App\Common\Infrastructure\Http\Controllers\Controller;
 use App\Reservation\Infrastructure\Bus\Query\SearchUserReservationQuery;
 use App\Reservation\UI\Controller\Request\SearchReservationRequest;
 use App\Reservation\UI\Controller\Resource\ReservationResource;
-use App\Shared\Application\Bus\QueryBus;
-use App\Shared\Infrastructure\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 

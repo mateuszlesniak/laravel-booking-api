@@ -4,31 +4,26 @@ declare(strict_types=1);
 
 namespace App\Reservation\Application\Service;
 
-use App\Reservation\Application\DTO\ReservationDTO;
-use App\Reservation\Application\Service\Checker\LocationAvailableChecker;
-use App\Reservation\Application\Service\Checker\LocationVacancyAvailableChecker;
-use App\Reservation\Domain\Repository\WriteReservationRepository;
-use Illuminate\Support\Facades\Pipeline;
+use App\Reservation\Domain\Model\Reservation;
+use App\Reservation\Domain\Validation\ReservationValidationStrategy;
 
 final readonly class ReservationService
 {
+    /**
+     * @var array|ReservationValidationStrategy[]
+     */
+    private array $reservationValidationStrategy;
+
     public function __construct(
-        private WriteReservationRepository $writeReservationRepository,
-    )
-    {
+        ReservationValidationStrategy ...$reservationValidationStrategy,
+    ) {
+        $this->reservationValidationStrategy = $reservationValidationStrategy;
     }
 
-    public function checkIfReservationBePlaced(ReservationDTO $reservationDTO): void
+    public function validateReservation(Reservation $reservation): void
     {
-        Pipeline::send($reservationDTO)
-            ->through([
-                LocationVacancyAvailableChecker::class,
-                LocationAvailableChecker::class,
-            ])->thenReturn();
-    }
-
-    public function createReservation(ReservationDTO $reservationDTO): void
-    {
-        $this->writeReservationRepository->makeNewReservation($reservationDTO);
+        foreach ($this->reservationValidationStrategy as $reservationStrategy) {
+            $reservationStrategy->validate($reservation);
+        }
     }
 }

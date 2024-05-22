@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Reservation\Domain\Exception;
 
-use Exception;
-
-class LocationNotAvailable extends Exception
+class LocationNotAvailable extends \Exception
 {
     public function __construct()
     {

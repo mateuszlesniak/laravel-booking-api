@@ -4,42 +4,49 @@ declare(strict_types=1);
 
 namespace App\Location\Infrastructure\Repository\MySQL;
 
-use App\Location\Application\DTO\LocationDTO;
 use App\Location\Application\Mapper\LocationMapper;
+use App\Location\Domain\Model\Location;
 use App\Location\Domain\Repository\ReadLocationRepository as ReadLocationRepositoryInterface;
-use App\Location\Infrastructure\Model\Location;
-use App\Shared\Application\Repository\BaseRepository;
+use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
+use Illuminate\Support\Collection;
 
-final class ReadLocationRepository extends BaseRepository implements ReadLocationRepositoryInterface
+final class ReadLocationRepository implements ReadLocationRepositoryInterface
 {
+    private ?\DateTimeInterface $restrictedDateFrom = null;
+    private ?\DateTimeInterface $restrictedDateTo = null;
+
     public function __construct(
-        private readonly LocationMapper $locationTransformer,
-        Location $model,
+        private readonly LocationMapper $locationMapper,
     ) {
-        parent::__construct($model);
     }
 
     #[\Override]
-    public function findAll(): array
+    public function findAll(): Collection
     {
-        $locations = [];
-
-        foreach ($this->model->all() as $location) {
-            $locations[] = $this->locationTransformer->fromEntity($location);
-        }
-
-        return $locations;
+        return LocationEntity::all()->map(function (LocationEntity $locationEntity) {
+            return LocationMapper::fromEloquent($locationEntity);
+        });
     }
 
     #[\Override]
-    public function findByLocationCode(string $locationCode): ?LocationDTO
+    public function findByLocationCode(string $locationCode): Location
     {
-        $location = $this->model->whereLocationCode($locationCode)->first();
+        $location = LocationEntity::query()->whereLocationCode($locationCode)->firstOrFail();
 
-        if (!$location) {
-            return null;
-        }
+        return $this->locationMapper->fromEloquent(
+            $location,
+            $this->restrictedDateFrom,
+            $this->restrictedDateTo,
+        );
+    }
 
-        return $this->locationTransformer->fromEntity($location);
+    public function restrictDates(
+        \DateTimeInterface $dateFrom,
+        \DateTimeInterface $dateTo,
+    ): self {
+        $this->restrictedDateFrom = $dateFrom;
+        $this->restrictedDateTo = $dateTo;
+
+        return $this;
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Reservation\Domain\Repository;
 
-use App\Reservation\Application\DTO\ReservationDTO;
+use App\Reservation\Domain\Model\Reservation;
 
 interface WriteReservationRepository
 {
-    public function makeNewReservation(ReservationDTO $reservationDTO): ReservationDTO;
+    public function store(Reservation $reservation): void;
 }

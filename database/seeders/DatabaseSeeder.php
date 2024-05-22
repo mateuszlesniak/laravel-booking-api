@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Location\Infrastructure\Model\Location;
-use App\Location\Infrastructure\Model\Vacancy;
+use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
+use App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity;
 use App\User\Infrastructure\Model\User;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
 
         $date = new DateTimeImmutable();
 
-        Location::factory()
+        LocationEntity::factory()
             ->count(20)
             ->has(
-                Vacancy::factory()->count(rand(15, 100))
+                LocationVacancyEntity::factory()->count(rand(15, 100))
                     ->sequence(function (Sequence $sequence) use (&$date) {
                         $date = $date->modify('+1 day');
                         return ['date' => $date->format('Y-m-d')];

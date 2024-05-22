@@ -1,6 +1,6 @@
 <?php
 
-use App\Location\Infrastructure\Model\Location;
+use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use App\Reservation\Application\DTO\ReservationStatus;
 use App\User\Infrastructure\Model\User;
 use Illuminate\Database\Migrations\Migration;
@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignIdFor(Location::class, 'location_id');
+            $table->foreignIdFor(LocationEntity::class, 'location_id');
             $table->date('date_in');
             $table->date('date_out');
             $table->enum('status', array_column(ReservationStatus::cases(), 'name'));

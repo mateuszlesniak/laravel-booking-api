@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Reservation\Infrastructure\Bus\Query;
 
+use App\Common\Application\Bus\Query\QueryHandler;
 use App\Reservation\Domain\Repository\ReadReservationRepository;
-use App\Shared\Application\Bus\Query\QueryHandler;
 use App\User\Application\Exception\UserNotFound;
 use App\User\Domain\Repository\ReadUserRepository;
 

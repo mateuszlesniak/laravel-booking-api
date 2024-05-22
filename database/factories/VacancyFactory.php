@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Location\Infrastructure\Model\Vacancy;
+use App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Location\Infrastructure\Model\Vacancy>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity>
  */
 class VacancyFactory extends Factory
 {
-    protected $model = Vacancy::class;
+    protected $model = LocationVacancyEntity::class;
 
     /**
      * Define the model's default state.

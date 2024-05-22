@@ -1,7 +1,7 @@
 <?php
 
-use App\Location\Infrastructure\Model\Vacancy;
-use App\Reservation\Infrastructure\Model\Reservation;
+use App\Location\Infrastructure\Model\Eloquent\LocationVacancyEntity;
+use App\Reservation\Infrastructure\Model\Eloquent\ReservationEntity;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +13,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('reservation_vacancies', function (Blueprint $table) {
-            $table->foreignIdFor(Reservation::class, 'reservation_id');
-            $table->foreignIdFor(Vacancy::class, 'vacancy_id');
+            $table->foreignIdFor(ReservationEntity::class, 'reservation_id');
+            $table->foreignIdFor(LocationVacancyEntity::class, 'vacancy_id');
             $table->unsignedTinyInteger('persons');
 
             $table->primary([

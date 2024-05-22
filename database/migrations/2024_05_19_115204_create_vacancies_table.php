@@ -1,6 +1,6 @@
 <?php
 
-use App\Location\Infrastructure\Model\Location;
+use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +13,7 @@ return new class extends Migration {
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Location::class, 'location_id');
+            $table->foreignIdFor(LocationEntity::class, 'location_id');
             $table->date('date');
             $table->unsignedTinyInteger('slots');
             $table->timestamps();

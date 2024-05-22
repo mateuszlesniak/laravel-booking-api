@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Location\Infrastructure\Model\Location;
+use App\Location\Infrastructure\Model\Eloquent\LocationEntity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Location\Infrastructure\Model\Location>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Location\Infrastructure\Model\Eloquent\LocationEntity>
  */
 class LocationFactory extends Factory
 {
-    protected $model = Location::class;
+    protected $model = LocationEntity::class;
 
     /**
      * Define the model's default state.
